@@ -12,7 +12,7 @@ class Controller extends Component{
     }
 
     render(){
-        const { add } = this.props
+        const { add,del } = this.props
         return(
             <View style ={{flex:1,flexDirection : 'row',alignItems:'center',justifyContent:'center'}}>
                 <TouchableOpacity 
@@ -21,6 +21,7 @@ class Controller extends Component{
                     <Text style = {{fontSize:40}}>Add</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
+                    onPress={del}
                     style={{backgroundColor: 'red',borderRadius:5,marginRight:5,}}>
                     <Text style = {{fontSize:40}}>Del</Text>
                 </TouchableOpacity>

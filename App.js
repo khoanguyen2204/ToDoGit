@@ -35,8 +35,13 @@ function reducer (state = defaultState, action){
       case "SELECTED":
       return{
         ...state,
-        selected: !state.selected
+        selected: true,
       };
+      case "DEL":
+        return{
+          ...state,
+          arrtodos:[],
+        }
     default:
       break
   }

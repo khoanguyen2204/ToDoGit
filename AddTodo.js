@@ -24,11 +24,8 @@ class AddTodo extends Component {
 					onChangeText={(text) => this.setState({textinput:text})}
 					style={{backgroundColor:'lightgray',borderRadius:5,fontSize:25,}}/>
 				<Controller 
-					add={()=>{
-						 this.props.add(this.state.textinput)
-						//  this.setState(this.state.textinput='')
-						// alert(this.state.textinput)
-					}}
+					add={()=>{this.props.add(this.state.textinput)}}
+					del={()=>{this.props.del()}}
 				/>
 			</View>
     );
@@ -45,7 +42,10 @@ const mapDispatchToProps = dispatch => {
 		add: (data) => dispatch({
 			type: "ADD",
 			data
-  	})
+	  	}),
+		del: ()=> dispatch({
+			type:"DEL"
+		})
 	}
 }
 
