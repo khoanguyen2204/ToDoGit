@@ -6,6 +6,9 @@ import AddTodo from './AddTodo'
 import TodoList from './TodoList'
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
+import {persistStore,persistReducer} from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react';
+import storage from 'redux-persist/lib/storage'
 
 
 const defaultState ={
@@ -14,6 +17,12 @@ const defaultState ={
       {id:2,tittle:'xyz',selected: false},
     ],
     text: '',
+  }
+
+  const persistConfig = {
+    key: 'root',
+    storage,
+    whitelist:['arrtodos']
   }
 
 function reducer (state = defaultState, action){
@@ -35,7 +44,10 @@ function reducer (state = defaultState, action){
       case "SELECTED":
       return{
         ...state,
-        selected: true,
+        arrtodos: state.arrtodos.map(e=>{
+          if(e.id !== action.id) return e;
+          return {...e,selected: !e.selected};
+        })
       };
       case "DEL":
         return{
@@ -48,17 +60,21 @@ function reducer (state = defaultState, action){
   return state;
 };
 
-const store = createStore(reducer)
+const PersistReducer = persistReducer(persistConfig,reducer)
+const store = createStore(PersistReducer)
+const persistor = persistStore(store)
 
 
 export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
-          <AddTodo/>
-          <TodoList/>
-        </View>
+        <PersistGate loading = {null} persistor = {persistor}>
+          <View style={styles.container}>
+            <AddTodo/>
+            <TodoList/>
+          </View>
+        </PersistGate>
       </Provider>
     );
   }

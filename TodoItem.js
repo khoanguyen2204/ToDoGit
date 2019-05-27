@@ -14,17 +14,17 @@ class TodoItem extends Component {
         // }
     
     render() {
-        const {tittle}  = this.props.word
+        const {tittle,id,selected}  = this.props.word
         return (
-            <TouchableOpacity onPress={()=>this.props.selected()}>
-                <Text style={{ fontSize: 25,margin:5,color:this.props.selected? 'gray':'red'}}>{tittle}</Text>
+            <TouchableOpacity onPress={()=>{this.props.selected(id);this.props.settext(tittle)}}>
+                <Text style={{ fontSize: 25,margin:5,color: selected? 'red':'gray'}}>{tittle}</Text>
             </TouchableOpacity>
         )
     }
 }
 
 const mapStateToProps = state =>({
-    selected: state.selected,
+
     
 })
 
@@ -34,8 +34,9 @@ const mapDispatchToProps = (dispatch) => {
 			type: "SET_TEXT",
 			data: tittle
       }),
-        selected: () => dispatch({
-            type:"SELECTED"
+        selected: (id) => dispatch({
+            type:"SELECTED",
+            id,
         })
     }
 }

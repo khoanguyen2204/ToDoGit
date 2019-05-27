@@ -18,18 +18,14 @@ class TodoList extends Component {
     );
   }
 }
-const mapStateToProps = state => {
-    return{
+const mapStateToProps = state => ({
       todos:state.arrtodos
-    }
-    
+})
+const mapDispatchToProps = ()=>({
   
-}
-const mapDispatchToProps = ()=>{
-  
-}
+})
 
-export default connect (mapStateToProps)(TodoList)
+export default connect (mapStateToProps,mapDispatchToProps)(TodoList)
 
 const styles = StyleSheet.create({
     listtodocontainer: {

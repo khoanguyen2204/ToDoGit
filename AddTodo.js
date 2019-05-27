@@ -26,6 +26,7 @@ class AddTodo extends Component {
 				<Controller 
 					add={()=>{this.props.add(this.state.textinput)}}
 					del={()=>{this.props.del()}}
+					
 				/>
 			</View>
     );
@@ -33,7 +34,7 @@ class AddTodo extends Component {
 }
 const mapStateToProps = state => {
 	return {
-		
+		textinput:state.text,
 	}
 }
 
