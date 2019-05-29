@@ -4,12 +4,7 @@ import {connect} from 'react-redux'
 
 class Controller extends Component{
 
-    addTodo = (text) => {
-        this.props.dispatch({
-            type: "ADD",
-            data: text
-        })
-    }
+    
 
     render(){
         const { add,del } = this.props
@@ -20,7 +15,7 @@ class Controller extends Component{
                     style={{backgroundColor: 'lightgreen',borderRadius:5,marginRight:5,}}>
                     <Text style = {{fontSize:40}}>Add</Text>
                 </TouchableOpacity>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     onPress={del}
                     style={{backgroundColor: 'red',borderRadius:5,marginRight:5,}}>
                     <Text style = {{fontSize:40}}>Del</Text>
@@ -28,9 +23,9 @@ class Controller extends Component{
                 <TouchableOpacity
                     style={{backgroundColor: 'orange',borderRadius:5,marginRight:5,}}>
                     <Text style = {{fontSize:40}}>Edit</Text>    
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         );
     }
 }
-export default connect()(Controller)
+export default Controller;

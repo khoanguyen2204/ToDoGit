@@ -11,9 +11,10 @@ import {
 import Controller from './Controller'
 import {connect} from 'react-redux'
 
+
 class AddTodo extends Component {
 	state={
-		textinput:''
+		textinput: ''
 	}
 
   render() {
@@ -24,9 +25,13 @@ class AddTodo extends Component {
 					onChangeText={(text) => this.setState({textinput:text})}
 					style={{backgroundColor:'lightgray',borderRadius:5,fontSize:25,}}/>
 				<Controller 
-					add={()=>{this.props.add(this.state.textinput)}}
-					del={()=>{this.props.del()}}
-					
+					add={()=>{
+						this.props.add(this.state.textinput)
+						this.setState({textinput: ''})
+					}}
+					// del={()=>{
+					// 	this.props.del()
+					// }}
 				/>
 			</View>
     );
@@ -35,6 +40,7 @@ class AddTodo extends Component {
 const mapStateToProps = state => {
 	return {
 		textinput:state.text,
+		index:state.index,
 	}
 }
 
@@ -44,9 +50,9 @@ const mapDispatchToProps = dispatch => {
 			type: "ADD",
 			data
 	  	}),
-		del: ()=> dispatch({
-			type:"DEL"
-		})
+		// del: ()=> dispatch({
+		// 	type:"DEL"
+		// })
 	}
 }
 

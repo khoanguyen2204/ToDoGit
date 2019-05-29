@@ -6,39 +6,56 @@ import { returnStatement } from '@babel/types';
 
 class TodoItem extends Component {
 
-        // settext = (tittle) => {
-        //     this.props.dispatch({
-        //         type: "SET_TEXT",
-        //         data: tittle
-        //     })
-        // }
-    
+    // settext = (tittle) => {
+    //     this.props.dispatch({
+    //         type: "SET_TEXT",
+    //         data: tittle
+    //     })
+    // }
+
     render() {
-        const {tittle,id,selected}  = this.props.word
+        // const {tittle,id,selected}  = this.props.word
+        const { tillte, id } = this.props.word
+        const  index  = this.props.index
         return (
-            <TouchableOpacity onPress={()=>{this.props.selected(id);this.props.settext(tittle)}}>
-                <Text style={{ fontSize: 25,margin:5,color: selected? 'red':'gray'}}>{tittle}</Text>
-            </TouchableOpacity>
+            <View style={{ flex: 1, flexDirection: 'row', borderBottomWidth: 1 }}
+            // onPress={() => {
+            //     select
+            //     // settext
+            // }}
+            >
+                <Text style={{ fontSize: 25, margin: 5, flex: 8 }}>{tillte}</Text>
+                <TouchableOpacity style={{ flex: 1, backgroundColor: 'red', borderRadius: 3, justifyContent: 'center', alignContent: 'center' }}
+                    onPress={() => {
+                        this.props.del(index)
+                        }
+                    }>
+                    <Text style={{ fontSize: 20 }}>Del</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ flex: 1, backgroundColor: 'orange', borderRadius: 3, justifyContent: 'center', alignContent: 'center' }}>
+                    <Text style={{ fontSize: 20 }}>Edit</Text>
+                </TouchableOpacity>
+            </View>
         )
     }
 }
 
-const mapStateToProps = state =>({
+const mapStateToProps = state => {
+    return {}
 
-    
-})
-
-const mapDispatchToProps = (dispatch) => {
-    return {   
-        settext: (tittle) => dispatch({
-			type: "SET_TEXT",
-			data: tittle
-      }),
-        selected: (id) => dispatch({
-            type:"SELECTED",
-            id,
-        })
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        del: (index) => dispatch({
+            type: "DEL",
+            index
+        }),
+        // del: ()=> dispatch({
+        // 	type:"DEL"
+        // })
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(TodoItem)
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoItem)
