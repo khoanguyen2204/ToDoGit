@@ -27,13 +27,12 @@ const defaultState = {
 // const persistConfig = {
 //   key: 'root',
 //   storage,
-//   whitelist:['arrtodos']
+//   whitelist: ['arrtodos']
 // }
 
 function reducer(state = defaultState, action) {
   switch (action.type) {
     case "ADD":
-      console.log(state.arrtodos)
       return {
         ...state,
         arrtodos: state.arrtodos.concat(
@@ -51,11 +50,13 @@ function reducer(state = defaultState, action) {
         ...state,
         arrtodos: filtered,
       }
-    // case "SET_TEXT":
-    //   return{
-    //     ...state,
-    //     text: action.data
-    //   }
+    case "EDIT":
+      console.log(action.index)
+      console.log(action.textChange)
+      return {
+        ...state,
+        arrtodos: state.arrtodos.splice(action.index,1,{tillte:action.textChange})
+      }
     // case "SELECTED":
     //   console.log(action.index)
     // return{
@@ -69,7 +70,7 @@ function reducer(state = defaultState, action) {
   return state;
 };
 
-// const PersistReducer = persistReducer(persistConfig,reducer)
+// const PersistReducer = persistReducer(persistConfig, reducer)
 const store = createStore(reducer)
 // const persistor = persistStore(store)
 
@@ -78,12 +79,12 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-
-        <View style={styles.container}>
-          <AddTodo />
-          <TodoList />
-        </View>
-
+        {/* <PersistGate loading={null} persistor={persistor}> */}
+          <View style={styles.container}>
+            <AddTodo />
+            <TodoList />
+          </View>
+        {/* </PersistGate> */}
       </Provider>
     );
   }
