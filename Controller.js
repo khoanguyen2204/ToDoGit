@@ -1,10 +1,8 @@
 import React,{Component} from 'react'
 import {TouchableOpacity,View,Text} from 'react-native'
-import {connect} from 'react-redux'
+
 
 class Controller extends Component{
-
-    
 
     render(){
         const { add,del } = this.props
@@ -15,15 +13,6 @@ class Controller extends Component{
                     style={{backgroundColor: 'lightgreen',borderRadius:5,marginRight:5,}}>
                     <Text style = {{fontSize:40}}>Add</Text>
                 </TouchableOpacity>
-                {/* <TouchableOpacity
-                    onPress={del}
-                    style={{backgroundColor: 'red',borderRadius:5,marginRight:5,}}>
-                    <Text style = {{fontSize:40}}>Del</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={{backgroundColor: 'orange',borderRadius:5,marginRight:5,}}>
-                    <Text style = {{fontSize:40}}>Edit</Text>    
-                </TouchableOpacity> */}
             </View>
         );
     }

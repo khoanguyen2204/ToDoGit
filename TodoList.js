@@ -1,7 +1,7 @@
 
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput } from 'react-native';
+import {  StyleSheet, View, FlatList, TextInput } from 'react-native';
 import { connect } from 'react-redux'
 import TodoItem from './TodoItem'
 import Dialog, { DialogContent, DialogFooter, DialogButton } from 'react-native-popup-dialog'
@@ -13,6 +13,7 @@ class TodoList extends Component {
       todos: this.props.todos,
       visible: false,
       textChange: '',
+      textIndex: null,
       index: ''
     };
   }
@@ -22,7 +23,6 @@ class TodoList extends Component {
   }
 
   render() {
-    // console.log(this.state)
     return (
       <View style={styles.listtodocontainer}>
         <FlatList
@@ -30,12 +30,9 @@ class TodoList extends Component {
           renderItem={({ item, index }) => <TodoItem word={item} index={index}
 
             del={() => { this.props.del(index) }}
-            edit={() => { this.setState({ visible: true, index: index }) }}
-          // settext={() => { this.props.settext(item.tittle) }}
+            edit={() => { this.setState({ visible: true, index: index, textChange: item.tillte }) }}
           />
           }
-
-          // extraData={this.state.todos}
           keyExtractor={item => item.toString()}
         />
         <Dialog
@@ -45,11 +42,14 @@ class TodoList extends Component {
             <DialogFooter>
               <DialogButton
                 text="CANCEL"
-                onPress={() => { this.setState({ visible: false }) }}
+                onPress={() => { this.setState({ visible: false, textChange: '' }) }}
               />
               <DialogButton
                 text="OK"
-                onPress={() => { this.props.edit(this.state.textChange, this.state.index, this.setState({ visible: false })) }}
+                onPress={() => {
+                  this.props.edit(this.state.textChange, this.state.index)
+                  this.setState({ visible: false, textChange: '' })
+                }}
               />
             </DialogFooter>
           }
@@ -59,7 +59,7 @@ class TodoList extends Component {
               <TextInput
                 value={this.state.textChange}
                 onChangeText={(text) => this.setState({ textChange: text })}
-                style={{ backgroundColor: 'lightgray', borderRadius: 5 }}
+                style={{ backgroundColor: 'lightgray', borderRadius: 5,fontSize:20 }}
               />
             </View>
 
@@ -68,12 +68,6 @@ class TodoList extends Component {
       </View>
     );
   }
-  // componentDidMount(){
-  //   console.log(JSON.stringify(this.props.todos))
-  // }
-  // componentDidUpdate(){
-  //   console.log('chay toi day')
-  // }
 };
 
 
@@ -85,22 +79,14 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = (dispatch) => ({
 
-  // settext: (tittle) => dispatch({
-  //   type: "SET_TEXT",
-  //   data: tittle
-  // }),
-  // selected: (index) => dispatch({
-  //   type: "SELECTED",
-  //   index
-  // })
   del: (index) => dispatch({
     type: "DEL",
     index
   }),
-  edit: (index, textChange) => dispatch({
+  edit: (textChange, index) => dispatch({
     type: "EDIT",
-    index,
     textChange,
+    index,
   }),
 
 })

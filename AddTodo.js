@@ -1,46 +1,41 @@
 
 
-import React , {Component} from 'react';
+import React, { Component } from 'react';
 import {
 	StyleSheet,
-	Text,
 	View,
-	TouchableOpacity,
 	TextInput
 } from 'react-native';
 import Controller from './Controller'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 
 class AddTodo extends Component {
-	state={
+	state = {
 		textinput: ''
 	}
 
-  render() {
-    return (
-      <View style={styles.container}>
+	render() {
+		return (
+			<View style={styles.container}>
 				<TextInput
 					value={this.state.textinput}
-					onChangeText={(text) => this.setState({textinput:text})}
-					style={{backgroundColor:'lightgray',borderRadius:5,fontSize:25,}}/>
-				<Controller 
-					add={()=>{
+					onChangeText={(text) => this.setState({ textinput: text })}
+					style={{ backgroundColor: 'lightgray', borderRadius: 5, fontSize: 25, }} />
+				<Controller
+					add={() => {
 						this.props.add(this.state.textinput)
-						this.setState({textinput: ''})
+						this.setState({ textinput: '' })
 					}}
-					// del={()=>{
-					// 	this.props.del()
-					// }}
 				/>
 			</View>
-    );
-  }
+		);
+	}
 }
 const mapStateToProps = state => {
 	return {
-		textinput:state.text,
-		index:state.index,
+		textinput: state.text,
+		index: state.index,
 	}
 }
 
@@ -49,26 +44,23 @@ const mapDispatchToProps = dispatch => {
 		add: (data) => dispatch({
 			type: "ADD",
 			data
-	  	}),
-		// del: ()=> dispatch({
-		// 	type:"DEL"
-		// })
+		}),
 	}
 }
 
-export default connect (mapStateToProps,mapDispatchToProps)(AddTodo)
+export default connect(mapStateToProps, mapDispatchToProps)(AddTodo)
 
 const styles = StyleSheet.create({
 	container: {
-					flex: 1,
-      		margin : 5,
-      		backgroundColor: 'white', 
+		flex: 1,
+		margin: 5,
+		backgroundColor: 'white',
 	},
-	
+
 	textinput: {
-        	justifyContent : 'center',
-					flex : 1,
-					backgroundColor:'lightgray',
+		justifyContent: 'center',
+		flex: 1,
+		backgroundColor: 'lightgray',
 	},
 
 });
